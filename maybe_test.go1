@@ -1,0 +1,68 @@
+	t.Run("header-groups", func(t *testing.T) {
+		// Want to be able to designate more than one column to be able to share
+		// the header.
+
+		// Each header group is a slice of columns
+
+		// header-groups
+
+		// cells:
+		// | row-id | column-group-id | column-id | cell-data |
+		// | row-id | column-group-id | column-id | cell-data |
+
+		// cells []string
+		// column-count
+		//
+		// Appending a row involves appending each string to the cells slice.
+		//
+		// Appending a column would involve a lot of slice moving.
+
+		// Ultimately really just need to add proper header support. Default is
+		// a single header per column. Then allow a particular column to be
+		// grouped with previous column.
+		//
+		// Also, provide for ability to set two header labels for each column,
+		// and when the primary header width is wider than the data width for
+		// that column, the library will use the narrow header label for the
+		// column.
+		var g Grid
+		g.AppendHeader(Header{Label: "CPU Load", Align: Left})
+		g.AppendHeader(Header{Label: "CPU Load", Short: "CPU", Align: Right})
+
+		// The headers provided will be shared across the same number of
+		// columns, while alignment is kept for each column:
+		//
+		//     CPU Load   %
+		//        54321  3%
+		//      1217284 12%
+		//
+		// The reason we need the additional complexity is to allow for the data
+		// in each row to be aligned properly within their individual column
+		// widths. This particular example has two columns, but the header is
+		// shared for highlighting purposes. Notice how the regular label is
+		// used for the left column, while the right column uses the short label
+		// because the data width for that column requires fewer characters than
+		// the right column's regular label.
+		g.AppendHeader(Header{Label: "CPU Load", Short: "CPU", Align: Right}, Header{Label: "Percent", Short: "%", Align: Right})
+		g.AppendRow([]string{"54321", "3%"})
+		g.AppendRow([]string{"1217284", "12%"})
+
+		// Maybe I would also consider the following, but I like the idea of
+		// allowing the library to dynamically opt for the shorter label when
+		// required.
+		if wantNarrow {
+			g.AppendHeader(Header{Label: "CPU", Align: Right}, Header{Label: "%", Align: Right})
+			g.AppendRow([]string{"54321", "3"})
+			g.AppendRow([]string{"1217284", "12"})
+		} else {
+			g.AppendHeader(Header{Label: "CPU Load", Align: Right}, Header{Label: "Percent", Align: Right})
+			g.AppendRow([]string{"54321", "3%"})
+			g.AppendRow([]string{"1217284", "12%"})
+		}
+
+		// Another possibility is to allow client to provide string slice of labels, and choose the widest one that
+		// fits the data.
+		g.AppendHeader(Header{Align: Center, Lables: []string{"Single Label"}})
+		g.AppendHeader(Header{Align: Center, Lables: []string{"Long Label", "Short", "S"}})
+	})
+
