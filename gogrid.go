@@ -112,73 +112,30 @@ func (g *Grid) Format() []string {
 	}
 
 	for ri, row := range g.data {
+		// pre and post are the ANSI color sequences required to colorize this
+		// field.
 		var pre, post string
-		if color := g.colors[ri]; color != "" {
-			switch strings.ToLower(color) {
-			case "bold":
-				pre = "\033[1m"
-			case "underscore":
-				pre = "\033[1;4m"
-			case "reverse":
-				pre = "\033[1;7m"
-			case "red":
-				pre = "\033[1;31m"
-			case "green":
-				pre = "\033[1;32m"
-			case "yellow":
-				pre = "\033[1;33m"
-			case "purple":
-				pre = "\033[1;34m"
-			case "magenta":
-				pre = "\033[1;35m"
-			case "teal":
-				pre = "\033[1;36m"
-			case "white":
-				pre = "\033[1;37m"
-			default:
-				pre = g.colors[ri]
-			}
-			post = "\033[0m"
+		if colors := g.colors[ri]; colors != "" {
+			pre, post = ansiFromLabel(colors)
 		}
 
 		fields := make([]string, len(row))
+
 		for ci, cell := range row {
 			dataWidths := g.dataWidths[ci]
 			if columnWidth := g.ColumnWidths[ci]; columnWidth > 0 {
 				dataWidths = columnWidth
 			}
-			fields[ci] = align(g.ColumnAlignments[ci], dataWidths, pre, cell, post)
+
+			fields[ci] = align(g.ColumnAlignments[ci], dataWidths, cell)
+
+			// Colorize the field if required.
+			if pre != "" {
+				fields[ci] = pre + fields[ci] + post
+			}
 		}
 		lines[ri] = strings.Join(fields, delim)
 	}
 
 	return lines
-}
-
-func align(alignment Alignment, width int, pre, field, post string) string {
-	text := pre + field + post
-	if width == 0 {
-		return text
-	}
-
-	needed := width - len(field)
-	if needed < 0 {
-		return pre + field[:width] + post // trim upstream field
-	}
-
-	switch alignment {
-	case Left:
-		return text + strings.Repeat(" ", needed)
-	case Center:
-		half := needed >> 1
-		double := half << 1
-		ws := strings.Repeat(" ", half)
-		if double == needed {
-			return ws + text + ws
-		}
-		return ws + text + ws + " " // need extra whitespace on one of the sides
-	case Right:
-		return strings.Repeat(" ", needed) + text
-	}
-	panic("NOTREACHED")
 }
