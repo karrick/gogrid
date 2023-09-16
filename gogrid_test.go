@@ -25,7 +25,7 @@ func TestGrid(t *testing.T) {
 			t.Run("first widest", func(t *testing.T) {
 				var g Grid
 
-				_, err := g.ColumnDataWidth(0)
+				_, err := g.ColumnCellWidth(0)
 				ensureError(t, err, "No such column")
 
 				ensureError(t, g.AppendColumn(Center, 13, []string{"aaa111", "aa22", "a3"}))
@@ -44,7 +44,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 13; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 6; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -53,7 +53,7 @@ func TestGrid(t *testing.T) {
 			t.Run("middle widest", func(t *testing.T) {
 				var g Grid
 
-				_, err := g.ColumnDataWidth(0)
+				_, err := g.ColumnCellWidth(0)
 				ensureError(t, err, "No such column")
 
 				ensureError(t, g.AppendColumn(Center, 13, []string{"aa11", "aaa222", "a3"}))
@@ -72,7 +72,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 13; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 6; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -81,7 +81,7 @@ func TestGrid(t *testing.T) {
 			t.Run("last widest", func(t *testing.T) {
 				var g Grid
 
-				_, err := g.ColumnDataWidth(0)
+				_, err := g.ColumnCellWidth(0)
 				ensureError(t, err, "No such column")
 
 				ensureError(t, g.AppendColumn(Center, 13, []string{"a1", "aa22", "aaa333"}))
@@ -100,7 +100,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 13; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 6; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -130,7 +130,7 @@ func TestGrid(t *testing.T) {
 					if got, want := g.ColumnWidths[0], 11; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
 					}
-					cdw, err := g.ColumnDataWidth(0)
+					cdw, err := g.ColumnCellWidth(0)
 					ensureError(t, err)
 					if got, want := cdw, 2; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -157,7 +157,7 @@ func TestGrid(t *testing.T) {
 					if got, want := g.ColumnWidths[0], 11; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
 					}
-					cdw, err := g.ColumnDataWidth(0)
+					cdw, err := g.ColumnCellWidth(0)
 					ensureError(t, err)
 					if got, want := cdw, 2; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -185,7 +185,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 6; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -198,7 +198,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[1], 13; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(1)
+				cdw, err = g.ColumnCellWidth(1)
 				ensureError(t, err)
 				if got, want := cdw, 12; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -214,7 +214,7 @@ func TestGrid(t *testing.T) {
 				g.DefaultAlignment = Left
 				g.DefaultWidth = 11
 
-				_, err := g.ColumnDataWidth(0)
+				_, err := g.ColumnCellWidth(0)
 				ensureError(t, err, "No such column")
 
 				ensureError(t, g.AppendRow([]string{"aaa111", "bb11", "c1"}))
@@ -233,7 +233,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 6; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -246,7 +246,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[1], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(1)
+				cdw, err = g.ColumnCellWidth(1)
 				ensureError(t, err)
 				if got, want := cdw, 4; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -259,7 +259,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[2], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(2)
+				cdw, err = g.ColumnCellWidth(2)
 				ensureError(t, err)
 				if got, want := cdw, 2; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -270,7 +270,7 @@ func TestGrid(t *testing.T) {
 				g.DefaultAlignment = Center
 				g.DefaultWidth = 11
 
-				_, err := g.ColumnDataWidth(0)
+				_, err := g.ColumnCellWidth(0)
 				ensureError(t, err, "No such column")
 
 				ensureError(t, g.AppendRow([]string{"aa11", "bbb111", "c1"}))
@@ -289,7 +289,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 4; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -302,7 +302,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[1], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(1)
+				cdw, err = g.ColumnCellWidth(1)
 				ensureError(t, err)
 				if got, want := cdw, 6; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -315,7 +315,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[2], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(2)
+				cdw, err = g.ColumnCellWidth(2)
 				ensureError(t, err)
 				if got, want := cdw, 2; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -326,7 +326,7 @@ func TestGrid(t *testing.T) {
 				g.DefaultAlignment = Right
 				g.DefaultWidth = 11
 
-				_, err := g.ColumnDataWidth(0)
+				_, err := g.ColumnCellWidth(0)
 				ensureError(t, err, "No such column")
 
 				ensureError(t, g.AppendRow([]string{"a1", "bb11", "ccc111"}))
@@ -345,7 +345,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 2; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -358,7 +358,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[1], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(1)
+				cdw, err = g.ColumnCellWidth(1)
 				ensureError(t, err)
 				if got, want := cdw, 4; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -371,7 +371,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[2], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(2)
+				cdw, err = g.ColumnCellWidth(2)
 				ensureError(t, err)
 				if got, want := cdw, 6; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -405,7 +405,7 @@ func TestGrid(t *testing.T) {
 					if got, want := g.ColumnWidths[0], 11; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
 					}
-					cdw, err := g.ColumnDataWidth(0)
+					cdw, err := g.ColumnCellWidth(0)
 					ensureError(t, err)
 					if got, want := cdw, 2; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -418,7 +418,7 @@ func TestGrid(t *testing.T) {
 					if got, want := g.ColumnWidths[1], 11; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
 					}
-					cdw, err = g.ColumnDataWidth(1)
+					cdw, err = g.ColumnCellWidth(1)
 					ensureError(t, err)
 					if got, want := cdw, 4; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -447,7 +447,7 @@ func TestGrid(t *testing.T) {
 					if got, want := g.ColumnWidths[0], 11; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
 					}
-					cdw, err := g.ColumnDataWidth(0)
+					cdw, err := g.ColumnCellWidth(0)
 					ensureError(t, err)
 					if got, want := cdw, 2; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -460,7 +460,7 @@ func TestGrid(t *testing.T) {
 					if got, want := g.ColumnWidths[1], 11; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
 					}
-					cdw, err = g.ColumnDataWidth(1)
+					cdw, err = g.ColumnCellWidth(1)
 					ensureError(t, err)
 					if got, want := cdw, 4; got != want {
 						t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -490,7 +490,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[0], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err := g.ColumnDataWidth(0)
+				cdw, err := g.ColumnCellWidth(0)
 				ensureError(t, err)
 				if got, want := cdw, 2; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -503,7 +503,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[1], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(1)
+				cdw, err = g.ColumnCellWidth(1)
 				ensureError(t, err)
 				if got, want := cdw, 4; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
@@ -516,7 +516,7 @@ func TestGrid(t *testing.T) {
 				if got, want := g.ColumnWidths[2], 11; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
 				}
-				cdw, err = g.ColumnDataWidth(2)
+				cdw, err = g.ColumnCellWidth(2)
 				ensureError(t, err)
 				if got, want := cdw, 8; got != want {
 					t.Errorf("GOT: %v; WANT: %v", got, want)
